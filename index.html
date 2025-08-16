@@ -548,7 +548,7 @@
         </p>
 
         <div class="button-container">
-          <button type="submit" class="button">রেজিস্টার</button>
+          <button type="submit" class="button" id="submitButton">রেজিস্টার</button>
         </div>
       </form>
     </div>
@@ -601,7 +601,7 @@
           </div>
           <button
             class="button"
-            onclick="window.location.href = 'https://www.google.com';"
+            onclick="window.location.href = 'https://medicalprostuti.github.io/features/';"
           >
             ওকে
           </button>
@@ -876,6 +876,10 @@
         .addEventListener("submit", async function (event) {
           event.preventDefault();
 
+          const submitButton = document.getElementById("submitButton");
+          submitButton.innerText = "ওয়েট...";
+          submitButton.disabled = true;
+
           const hscRoll = document.getElementById("hscRoll").value;
           const hscReg = document.getElementById("hscReg").value;
           const phone = document.getElementById("phone").value;
@@ -885,6 +889,8 @@
 
           if (phone.length !== 11) {
             showCustomMessage("ফোন নম্বর ১১ ডিজিটের হতে হবে।", "error");
+            submitButton.innerText = "রেজিস্টার";
+            submitButton.disabled = false;
             return;
           }
 
@@ -893,11 +899,15 @@
               "রোল নম্বর ৬ ডিজিট এবং রেজিস্ট্রেশন নম্বর ১০ ডিজিট হতে হবে।",
               "error"
             );
+            submitButton.innerText = "রেজিস্টার";
+            submitButton.disabled = false;
             return;
           }
 
           if (!board || !year || !payment) {
             showCustomMessage("সকল প্রয়োজনীয় তথ্য পূরণ করুন।", "error");
+            submitButton.innerText = "রেজিস্টার";
+            submitButton.disabled = false;
             return;
           }
 
@@ -932,10 +942,14 @@
                 "ফর্ম জমা দিতে সমস্যা হয়েছে। আবার চেষ্টা করুন।",
                 "error"
               );
+              submitButton.innerText = "রেজিস্টার";
+              submitButton.disabled = false;
             }
           } catch (e) {
             console.error("Form submission error:", e);
             showCustomMessage("একটি ত্রুটি হয়েছে।", "error");
+            submitButton.innerText = "রেজিস্টার";
+            submitButton.disabled = false;
           }
         });
 
@@ -961,4 +975,7 @@
       }
     </script>
   </body>
-</html>
+              </html>                                          </button>
+        
+    
+                  
