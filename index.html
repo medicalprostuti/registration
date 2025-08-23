@@ -311,9 +311,9 @@
 
       .close-modal {
         position: absolute;
-        right: 15px; /* Positioned to the right */
-        top: 10px; /* Positioned to the top */
-        color: #aaa; /* Changed color for better visibility */
+        right: 15px;
+        top: 10px;
+        color: #aaa;
         font-size: 28px;
         font-weight: bold;
         cursor: pointer;
@@ -321,7 +321,6 @@
 
       .close-modal:hover,
       .close-modal:focus {
-        /* Added focus for accessibility */
         color: black;
         text-decoration: none;
       }
@@ -543,8 +542,8 @@
         </div>
 
         <p class="warning">
-         <b>Note:</b> If you give false payment information,your ID will be banned from
-          MediQ forever.
+          <b>Note:</b> If you give false payment information,your ID will be
+          banned from MediQ forever.
         </p>
 
         <div class="button-container">
@@ -618,10 +617,7 @@
           <div class="payment-info">
             <h4>পেমেন্ট মেথড</h4>
             <p>
-              <strong
-                >বিকাশ, নগদ, রকেট-এ Send Money করো নিচের Personal
-                নাম্বারে:</strong
-              >
+              <strong>বিকাশ, নগদ, রকেট-এ Send Money করো নিচের Personal নাম্বারে:</strong>
             </p>
             <ul class="payment-list">
               <li class="payment-list-item">
@@ -678,7 +674,7 @@
             </ul>
           </div>
           <p style="text-align: center; margin-top: 20px">
-            যেকোনো প্রয়োজনে নক করো <br>
+            যেকোনো প্রয়োজনে নক করো <br />
             <a href="https://www.facebook.com/" target="_blank">ফেসবুক পেজে</a>
           </p>
         </div>
@@ -700,14 +696,13 @@
         }
       }
 
-      // Function to handle the referral code discount (case-sensitive)
+      // Function to handle the referral code discount
       function handleReferralDiscount() {
         const referralCodeInput = document.getElementById("referralCode");
-        const strikethroughPrice =
-          document.getElementById("strikethroughPrice");
+        const strikethroughPrice = document.getElementById("strikethroughPrice");
         const actualPrice = document.getElementById("actualPrice");
+        const referralCode = referralCodeInput.value.trim();
 
-        const referralCode = referralCodeInput.value;
         if (referralCode === "ULLAS01") {
           strikethroughPrice.style.display = "inline";
           actualPrice.textContent = "৳৪৯৯";
@@ -726,7 +721,6 @@
         document.execCommand("copy");
         document.body.removeChild(tempInput);
 
-        // Show custom message box
         const messageBox = document.getElementById("messageBox");
         messageBox.textContent = "কপি করা হয়েছে!";
         messageBox.style.display = "block";
@@ -750,9 +744,8 @@
         document.execCommand("copy");
         document.body.removeChild(tempInput);
 
-        // Show custom message box
         const messageBox = document.getElementById("messageBox");
-        messageBox.textContent = "Number Copied!"; // Text for payment modal
+        messageBox.textContent = "Number Copied!";
         messageBox.style.display = "block";
         setTimeout(() => {
           messageBox.style.opacity = 1;
@@ -792,7 +785,7 @@
 
         button.addEventListener("click", () => {
           const isActive = options.classList.contains("show");
-          closeAllDropdowns(); // Close all other dropdowns
+          closeAllDropdowns();
           if (!isActive) {
             options.classList.add("show");
             button.classList.add("active");
@@ -811,7 +804,6 @@
           });
         });
 
-        // Close dropdown if clicked outside
         document.addEventListener("click", (event) => {
           if (
             !button.contains(event.target) &&
@@ -822,7 +814,6 @@
           }
         });
 
-        // Reset dropdown when form is reset
         document
           .getElementById("registrationForm")
           .addEventListener("reset", () => {
@@ -832,7 +823,6 @@
           });
       }
 
-      // Function to close all dropdowns
       function closeAllDropdowns() {
         document.querySelectorAll(".dropdown-options").forEach((options) => {
           options.classList.remove("show");
@@ -849,7 +839,6 @@
           .getElementById("referralCode")
           .addEventListener("input", handleReferralDiscount);
 
-        // Initialize custom dropdowns
         setupCustomDropdown(
           "shikkhaBoardBtn",
           "shikkhaBoardOptions",
@@ -887,13 +876,13 @@
           const year = document.getElementById("hscYearInput").value;
           const payment = document.getElementById("paymentMethodInput").value;
 
+          // Input validation
           if (phone.length !== 11) {
             showCustomMessage("ফোন নম্বর ১১ ডিজিটের হতে হবে।", "error");
             submitButton.innerText = "রেজিস্টার";
             submitButton.disabled = false;
             return;
           }
-
           if (hscRoll.length !== 6 || hscReg.length !== 10) {
             showCustomMessage(
               "রোল নম্বর ৬ ডিজিট এবং রেজিস্ট্রেশন নম্বর ১০ ডিজিট হতে হবে।",
@@ -903,7 +892,6 @@
             submitButton.disabled = false;
             return;
           }
-
           if (!board || !year || !payment) {
             showCustomMessage("সকল প্রয়োজনীয় তথ্য পূরণ করুন।", "error");
             submitButton.innerText = "রেজিস্টার";
@@ -914,17 +902,15 @@
           const form = event.target;
           const formData = new FormData(form);
 
-          const regString = hscReg.toString();
-          let serial = regString.substring(regString.length - 5);
-          serial = serial.replace(/^0+/, "") || "0";
-
-          formData.append("serial", serial); // Add the serial number to the form data
+          // Get the last 5 digits of the HSC Registration number to use as the serial.
+          let serial = hscReg.toString().slice(-5);
+          // Append the generated serial to the form data.
+          formData.append("serial", serial);
 
           try {
             const response = await fetch(
               "https://script.google.com/macros/s/AKfycbwE8rNk8nY7nAAGjRKUYWo1DhKh6jbdLnCVcRrDrpv7ZzCZMJqXTqXghcDjPIngsCFD/exec",
               {
-                // <-- PASTE YOUR URL HERE
                 method: "POST",
                 body: formData,
               }
@@ -933,10 +919,11 @@
             const result = await response.json();
 
             if (result.result === "success") {
+              // Display the student's roll and the newly created serial in the success modal.
               document.getElementById("popupHscRoll").textContent = hscRoll;
               document.getElementById("popupSerial").textContent = serial;
               document.getElementById("successModal").style.display = "flex";
-              form.reset(); // Reset the form fields
+              form.reset(); // Reset the form fields for the next submission
             } else {
               showCustomMessage(
                 "ফর্ম জমা দিতে সমস্যা হয়েছে। আবার চেষ্টা করুন।",
@@ -975,7 +962,4 @@
       }
     </script>
   </body>
-              </html>                                          </button>
-        
-    
-                  
+</html>
