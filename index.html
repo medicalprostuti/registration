@@ -7,7 +7,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
+        /* CSS Variables for a consistent color palette */
         :root {
             --primary-color: #1b0b54;
             --accent-color: #5d3fd3;
@@ -17,22 +19,38 @@
             --error-color: #ef4444;
         }
 
+        /* Base Styles for a clean slate */
         body {
             font-family: 'Hind Siliguri', sans-serif;
             background-color: var(--bg-light);
             color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 2rem 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
         }
 
+        .container {
+            max-width: 1280px;
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        /* --- Animations --- */
         @keyframes float {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-10px); }
         }
-
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
         @keyframes pulseBorder {
             0%, 100% { border-color: transparent; }
             50% { border-color: var(--accent-color); }
@@ -41,131 +59,164 @@
         .animate-float { animation: float 4s ease-in-out infinite; }
         .animate-fade-in { animation: fadeIn 1s ease-out forwards; }
         .animate-pulse-border { animation: pulseBorder 2s ease-in-out infinite; }
+
+        /* --- Card Styles --- */
         .card {
             background-color: white;
             padding: 2.5rem;
             border-radius: 2rem;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
-
         .card:hover {
             transform: translateY(-5px);
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
         }
 
+        /* --- Layout Grid for Cards --- */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .card-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .main-card {
+                grid-column: span 2;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .card-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .main-card {
+                grid-column: span 3;
+            }
+        }
+
+        /* --- Component Specific Styles --- */
         .price-box {
             background-color: var(--primary-color);
             color: white;
-            display: inline-block;
-            padding: 1.5rem 2rem;
+            padding: 1rem 2.5rem; 
             border-radius: 1.5rem;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            transition: all 0.5s ease-in-out;
+            display: inline-block;
+            margin-top: 2rem; 
         }
-
         .original-price {
             text-decoration: line-through;
             color: var(--error-color);
             margin-right: 0.5rem;
         }
+        .promo-box {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 2rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border: 2px solid var(--accent-color);
+            max-width: 480px;
+            margin: 2rem auto 0; /* Adjusted top margin for spacing */
+        }
+        .promo-section {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        @media (min-width: 640px) {
+            .promo-section {
+                flex-direction: row;
+            }
+        }
+        .promo-input {
+            flex: 1;
+            padding: 0.5rem 0.75rem; 
+            border-radius: 0.75rem;
+            border: 2px solid var(--text-color);
+            transition: border-color 0.3s;
+            outline: none;
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+        .promo-input:focus {
+            border-color: var(--accent-color);
+        }
+        .apply-btn {
+            background-color: var(--accent-color);
+            color: white;
+            font-weight: 600;
+            padding: 0.5rem 1.25rem; 
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s;
+            cursor: pointer;
+            border: none;
+            white-space: nowrap;
+        }
+        .apply-btn:hover {
+            background-color: #4b32b8;
+        }
+        .no-promo-btn {
+            color: var(--accent-color);
+            font-weight: 500;
+            margin-top: 1rem;
+            text-decoration: none;
+            transition: text-decoration 0.3s;
+            background: none;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        .no-promo-btn:hover {
+            text-decoration: underline;
+        }
+        .promo-message { color: var(--success-color); font-weight: 600; margin-top: 1rem; }
+        .error-message { color: var(--error-color); font-weight: 600; margin-top: 1rem; }
 
-        .promo-message { color: var(--success-color); font-weight: 600; }
-        .error-message { color: var(--error-color); font-weight: 600; }
-        .container { max-width: 1344px; margin: auto; padding: 48px; }
-        @media (min-width: 768px) {
-            .container { padding: 64px; }
-        }
-        @media (min-width: 1024px) {
-            .container { padding: 96px; }
-        }
-        .text-center { text-align: center; }
-        .space-y-12 > :not([hidden]) ~ :not([hidden]) { margin-top: 48px; }
-        .text-3xl { font-size: 1.875rem; line-height: 2.25rem; }
-        .text-5xl { font-size: 3rem; line-height: 1; }
-        .font-bold { font-weight: 700; }
-        .text-lg { font-size: 1.125rem; line-height: 1.75rem; }
-        .max-w-3xl { max-width: 48rem; }
-        .mx-auto { margin-left: auto; margin-right: auto; }
-        .grid { display: grid; }
-        .gap-8 { gap: 2rem; }
-        .md\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-        .lg\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-        .mb-6 { margin-bottom: 1.5rem; }
-        .md\:col-span-2 { grid-column: span 2 / span 2; }
-        .lg\:col-span-3 { grid-column: span 3 / span 3; }
-        .list-disc { list-style-type: disc; }
-        .list-inside { list-style-position: inside; }
-        .space-y-2 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.5rem; }
-        .text-\[var\(--error-color\)\] { color: var(--error-color); }
-        .text-\[var\(--primary-color\)\] { color: var(--primary-color); }
-        .text-\[var\(--text-color\)\] { color: var(--text-color); }
-        .text-\[var\(--success-color\)\] { color: var(--success-color); }
-        .text-\[var\(--accent-color\)\] { color: var(--accent-color); }
-        .text-2xl { font-size: 1.5rem; line-height: 2rem; }
-        .mb-4 { margin-bottom: 1rem; }
-        .font-extrabold { font-weight: 800; }
-        .text-4xl { font-size: 2.25rem; line-height: 2.5rem; }
-        .mt-6 { margin-top: 1.5rem; }
-        .bg-white { background-color: white; }
-        .p-6 { padding: 1.5rem; }
-        .rounded-\[2rem\] { border-radius: 2rem; }
-        .shadow-lg { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
-        .border-2 { border-width: 2px; }
-        .border-\[var\(--accent-color\)\] { border-color: var(--accent-color); }
-        .mb-4 { margin-bottom: 1rem; }
-        .flex { display: flex; }
-        .sm\:flex-row { flex-direction: row; }
-        .items-center { align-items: center; }
-        .justify-center { justify-content: center; }
-        .gap-2 { gap: 0.5rem; }
-        .flex-1 { flex: 1 1 0%; }
-        .p-3 { padding: 0.75rem; }
-        .rounded-xl { border-radius: 0.75rem; }
-        .border-\[var\(--text-color\)\] { border-color: var(--text-color); }
-        .focus\:outline-none:focus { outline: 2px solid transparent; outline-offset: 2px; }
-        .focus\:border-\[var\(--accent-color\)\]:focus { border-color: var(--accent-color); }
-        .transition-colors { transition-property: background-color, border-color, color, fill, stroke; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms; }
-        .bg-\[var\(--accent-color\)\] { background-color: var(--accent-color); }
+        /* --- Typography and Spacing --- */
+        h1, h2, h3 { color: var(--primary-color); }
+        .main-heading { font-size: 2.5rem; font-weight: 700; }
+        .sub-heading { font-size: 1.125rem; }
+        .card-heading { font-size: 1.5rem; font-weight: 700; }
+        .price-text { font-size: 1.25rem; }
+        .price-value { font-size: 3rem; font-weight: 800; }
+        .text-lead { max-width: 768px; margin: 0 auto; }
+        .text-centered { text-align: center; }
+        .list-style-disc { list-style-type: disc; list-style-position: inside; }
+        .list-item-bold { font-weight: 700; }
+        .text-bold-primary { font-weight: 700; color: var(--primary-color); }
+        .text-bold-success { font-weight: 700; color: var(--success-color); }
+        .text-bold-error { font-weight: 700; color: var(--error-color); }
         .text-white { color: white; }
-        .font-semibold { font-weight: 600; }
-        .shadow-md { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); }
-        .hover\:bg-opacity-90:hover { background-color: rgba(93, 63, 211, 0.9); }
-        .flex-shrink-0 { flex-shrink: 0; }
-        .relative { position: relative; }
-        .mt-4 { margin-top: 1rem; }
-        .hover\:underline:hover { text-decoration: underline; }
-        .text-center { text-align: center; }
-        .leading-relaxed { line-height: 1.625; }
-        .price-box { padding: 1.5rem 2rem; }
-        .text-xl { font-size: 1.25rem; line-height: 1.75rem; }
-        .mt-2 { margin-top: 0.5rem; }
-        .text-3xl { font-size: 1.875rem; line-height: 2.25rem; }
-        .md\:text-5xl { font-size: 3rem; line-height: 1; }
-        .font-extrabold { font-weight: 800; }
-        .transition-all { transition-property: all; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms; }
-        .w-full { width: 100%; }
     </style>
 </head>
-<body class="p-4 md:p-8 lg:p-12 flex items-center justify-center min-h-screen">
-    <div class="max-w-6xl w-full mx-auto space-y-12">
-        <header class="text-center space-y-4 animate-fade-in">
-            <h1 class="text-3xl md:text-5xl font-bold text-[var(--primary-color)]">
+
+<body>
+    <div class="container">
+        <header class="text-centered animate-fade-in">
+            <h1 class="main-heading">
                 MediQ এর সাথে মেডিকেল ভর্তি যুদ্ধে এগিয়ে যাও আরেক ধাপ!
             </h1>
-            <p class="text-base md:text-lg text-[var(--text-color)] leading-relaxed max-w-3xl mx-auto">
+            <p class="sub-heading text-lead">
                 অফুরন্ত প্রশ্ন ভান্ডার থেকে অনুশীলন করো, পরীক্ষা দাও, দেশসেরা মেডিকেল কলেজ শিক্ষার্থীদের মেন্টরশিপের ভেতরে ঝালিয়ে নাও তোমার প্রিপারেশন!
             </p>
         </header>
 
-        <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div class="card md:col-span-2 lg:col-span-3">
-                <h2 class="text-2xl md:text-3xl font-bold text-[var(--primary-color)] mb-6 text-center">
+        <section class="card-grid">
+            <div class="card main-card">
+                <h2 class="card-heading text-centered">
                     এক নজরে দেখে নাও MediQ-2025 প্রোগ্রামে <br> যা যা থাকছে:
                 </h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="card-grid">
                     <div>
-                        <ul class="list-disc list-inside text-[var(--text-color)] space-y-2">
+                        <ul class="list-style-disc">
                             <li>৭৫ টি ডেইলি (৫০ নম্বর)</li>
                             <li>১১ টি উইকলি (১০০ নম্বর)</li>
                             <li>৩ টি মান্থলি (১০০ নম্বর)</li>
@@ -180,33 +231,33 @@
                         </ul>
                     </div>
                     <div>
-                        <ul class="list-disc list-inside text-[var(--text-color)] space-y-2">
-                            <li class="font-bold text-[var(--error-color)]">নেগেটিভ মার্কিং (০.২৫)</li>
-                            <li class="font-bold text-[var(--error-color)]">সেকেন্ড টাইমারদের জন্য প্রত্যেক পরীক্ষায় পেনাল্টি মার্কিং (৩%)</li>
-                            <li>প্রত্যেক এক্স্যাম শেষে <span class="font-bold text-[var(--primary-color)]">লিডার বোর্ডে</span> দেখো তোমার অবস্থান!</li>
-                            <li>২৪×৭ <span class="font-bold text-[var(--primary-color)]">মক এক্স্যামের</span> সুযোগ। চ্যাপ্টার, টপিক, প্রশ্ন সংখ্যা ও সময় সেলেক্ট করে দাও আনলিমিটেড এক্স্যাম।</li>
+                        <ul class="list-style-disc">
+                            <li class="list-item-bold text-bold-error">নেগেটিভ মার্কিং (০.২৫)</li>
+                            <li class="list-item-bold text-bold-error">সেকেন্ড টাইমারদের জন্য প্রত্যেক পরীক্ষায় পেনাল্টি মার্কিং (৩%)</li>
+                            <li>প্রত্যেক এক্স্যাম শেষে <span class="text-bold-primary">লিডার বোর্ডে</span> দেখো তোমার অবস্থান!</li>
+                            <li>২৪×৭ <span class="text-bold-primary">মক এক্স্যামের</span> সুযোগ। চ্যাপ্টার, টপিক, প্রশ্ন সংখ্যা ও সময় সেলেক্ট করে দাও আনলিমিটেড এক্স্যাম।</li>
                         </ul>
                     </div>
                 </div>
             </div>
 
             <div class="card">
-                <h2 class="text-2xl font-bold text-[var(--primary-color)] mb-4">অনুশীলন ফিচার্স!</h2>
-                <p class="text-[var(--text-color)]">
-                    অনুশীলনী ও বিগত বছরের প্রশ্ন মিলিয়ে ২০,০০০ প্রশ্নের সমন্বয়ে তৈরী "<span class="font-bold text-[var(--accent-color)]">অনুশীলন</span>" ফিচার্স! যেখান থেকে মেডিকেল ভর্তি পরীক্ষায় প্রশ্ন আসার সম্ভাবনা <span class="font-bold text-[var(--success-color)]">৮০-৯০%</span>!
+                <h2 class="card-heading">অনুশীলন ফিচার্স!</h2>
+                <p>
+                    অনুশীলনী ও বিগত বছরের প্রশ্ন মিলিয়ে ২০,০০০ প্রশ্নের সমন্বয়ে তৈরী "<span class="text-bold-primary">অনুশীলন</span>" ফিচার্স! যেখান থেকে মেডিকেল ভর্তি পরীক্ষায় প্রশ্ন আসার সম্ভাবনা <span class="text-bold-success">৮০-৯০%</span>!
                 </p>
             </div>
             
             <div class="card">
-                <h2 class="text-2xl font-bold text-[var(--primary-color)] mb-4">দেশসেরা মেডিকেল কলেজের শিক্ষার্থীদের মেন্টরশিপ প্রোগ্রাম</h2>
-                <p class="text-lg text-[var(--text-color)] max-w-3xl mx-auto">
+                <h2 class="card-heading">দেশসেরা মেডিকেল কলেজের শিক্ষার্থীদের মেন্টরশিপ প্রোগ্রাম</h2>
+                <p>
                     যারা তোমার অপারগতা, দূর্বলতা, মানসিক স্বাস্থ্য ও সঠিক গাইডলাইনের ব্যাপারে যত্নশীল।
                 </p>
             </div>
 
             <div class="card">
-                <h2 class="text-2xl font-bold text-[var(--primary-color)] mb-4">আরও অনেক কিছু!</h2>
-                <ul class="list-disc list-inside text-[var(--text-color)] space-y-2">
+                <h2 class="card-heading">আরও অনেক কিছু!</h2>
+                <ul class="list-style-disc">
                     <li>মাসিক জিকে সাম্প্রতিক তথ্যের স্পেশাল নোট।</li>
                     <li>লাইভ এক্স্যামে অংশগ্রহণ না করলে আর্কাইভ থেকে এক্স্যাম দেওয়ার সুবিধা</li>
                     <li>এক্সট্রা ইনফোর স্পেশাল শিট।</li>
@@ -215,38 +266,39 @@
             </div>
 
             <div class="card" style="background-color: var(--success-color); color: white;">
-                <h2 class="text-2xl font-bold mb-4">ফ্রি প্রোগ্রাম </h2>
-                <ul class="list-disc list-inside text-white space-y-2">
-                    <li> প্রোগ্রামে যুক্ত না হয়েও থাকবে কিছু বিষয়ের ফ্রি ডেমো অনুশীলনের সুযোগ।</li>
+                <h2 class="card-heading text-white">ফ্রি প্রোগ্রাম </h2>
+                <ul class="list-style-disc">
+                    <li>প্রোগ্রামে যুক্ত না হয়েও থাকবে কিছু বিষয়ের ফ্রি ডেমো অনুশীলনের সুযোগ।</li>
                     <li>নিয়মিত ফ্রি ডেমো ডেইলি, উইকলি সহ মডেল টেস্ট ও অন্যান্য মেগা এক্স্যাম!</li>
                 </ul>
             </div>
+
         </section>
 
-        <section class="text-center space-y-6 animate-fade-in">
-            <h2 class="text-2xl md:text-4xl font-extrabold text-[var(--primary-color)] animate-pulse-border">
+        <section class="text-centered animate-fade-in">
+            <h2 class="card-heading animate-pulse-border">
                 আজই যুক্ত হও <br> MediQ-2025 প্রোগ্রামে!
             </h2>
-            <p class="text-[var(--text-color)] max-w-2xl mx-auto leading-relaxed">
+            <p class="text-lead">
                 পড়ো, অনুশীলন করো, পরীক্ষা দাও, মেন্টরশিপের মাধ্যমে নিজের স্ট্র‍্যাটেজি সাজাও।
                 নিজের কনফিডেন্স বুস্ট করে সাদা এপ্রোনের লড়াইয়ে ছিনিয়ে আনো বিজয়!
             </p>
 
             <div class="price-box animate-float">
-                <p class="text-lg md:text-xl font-medium">এনরোলমেন্ট ফিস:</p>
-                <div id="priceDisplay" class="text-3xl md:text-5xl font-extrabold mt-2 transition-all duration-500">৬৯৯৳</div>
+                <p class="price-text">এনরোলমেন্ট ফিস:</p>
+                <div id="priceDisplay" class="price-value">৬৯৯৳</div>
             </div>
 
-            <div id="promoBox" class="bg-white p-6 rounded-[2rem] shadow-lg border-2 border-[var(--accent-color)] mt-6 mx-auto max-w-md animate-fade-in">
-                <h3 class="text-lg font-semibold text-[var(--primary-color)] mb-4">প্রোমোকোড ব্যবহারে পাও ১০০৳ ডিসকাউন্ট!</h3>
-                <div id="promo-section" class="flex flex-col sm:flex-row items-center justify-center gap-2">
-                    <input type="text" id="promoCodeInput" placeholder="প্রোমোকোড দিন" class="flex-1 p-3 rounded-xl border-2 border-[var(--text-color)] focus:outline-none focus:border-[var(--accent-color)] transition-colors" />
-                    <button id="applyPromoBtn" class="bg-[var(--accent-color)] text-white font-semibold p-3 rounded-xl shadow-md hover:bg-opacity-90 transition-colors flex-shrink-0 relative">
+            <div id="promoBox" class="promo-box animate-fade-in">
+                <h3 class="card-heading">প্রোমোকোড ব্যবহারে পাও ১০০৳ ডিসকাউন্ট!</h3>
+                <div id="promo-section" class="promo-section">
+                    <input type="text" id="promoCodeInput" placeholder="প্রোমোকোড দিন" class="promo-input" />
+                    <button id="applyPromoBtn" class="apply-btn">
                         <span id="buttonText">Apply promocode</span>
                     </button>
                 </div>
-                <button id="noPromoBtn" class="mt-4 text-[var(--accent-color)] font-medium hover:underline transition-colors">I've no Promocode</button>
-                <div id="messageBox" class="mt-4 text-center"></div>
+                <button id="noPromoBtn" class="no-promo-btn">I've no Promocode</button>
+                <div id="messageBox" class="message-box"></div>
             </div>
         </section>
     </div>
@@ -262,7 +314,6 @@
             const validPromoCodes = ['ULLAS01', 'BILAS01'];
             const formspreeUrl = 'YOUR_FORMSPREE_LINK_HERE';
             
-            // Non-blocking IP fetch
             async function submitToFormspree(promoCode) {
                 if (formspreeUrl === 'YOUR_FORMSPREE_LINK_HERE') {
                     console.warn("Formspree URL is not configured. Skipping submission.");
@@ -317,10 +368,8 @@
                     applyPromoBtn.disabled = true;
                     applyPromoBtn.style.opacity = '0.7';
 
-                    // Start the IP fetch but don't wait for it
                     submitToFormspree(promoCode);
                     
-                    // Redirect immediately after a short delay
                     setTimeout(() => {
                         window.location.href = 'https://dash.zinipay.com/secure/payment-link/eeb278bc-c43d-4315-8bc2-8724ee1467bd';
                     }, 100); 
